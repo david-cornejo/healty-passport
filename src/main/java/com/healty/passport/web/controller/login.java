@@ -17,16 +17,18 @@ public class login {
         this.cuentaRepository = cuentaRepository;
     }
 
+
+    @CrossOrigin(origins = "http://localhost")
     @PostMapping("/login")
     public ResponseEntity<?> Login(@RequestBody LoginDto loginDto) {
         boolean isAuthenticated = cuentaRepository.autenticar(loginDto.getCorreo(), loginDto.getContraseña());
 
         if (isAuthenticated) {
             // Inicio de sesión exitoso
-            return ResponseEntity.ok().body("Inicio de sesión exitoso");
+            return ResponseEntity.ok().body("{\"mensaje\": \"Inicio de sesión exitoso\"}");
         } else {
             // Inicio de sesión fallido
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"Credenciales inválidas\"}");
         }
     }
 }
