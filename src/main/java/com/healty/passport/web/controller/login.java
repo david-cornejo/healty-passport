@@ -18,7 +18,7 @@ public class login {
     }
 
 
-    @CrossOrigin(origins = "http://localhost")
+    @CrossOrigin(origins = "http://localhost")//configuracion del server del front
     @PostMapping("/login")
     public ResponseEntity<?> Login(@RequestBody LoginDto loginDto) {
         boolean isAuthenticated = cuentaRepository.autenticar(loginDto.getCorreo(), loginDto.getContraseña());
