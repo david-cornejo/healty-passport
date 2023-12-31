@@ -22,8 +22,7 @@ public class Usuario {
     private String telefono;
     @Column(name = "Fecha_de_Nacimiento")
     private Date fechaDeNacimiento;
-
-    @Column(name = "Tipo_usuario", insertable=false, updatable=false)
+    @Column(name = "Tipo_usuario")
     private String tipoUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -44,7 +43,6 @@ public class Usuario {
     public Doctor getDoctor() {
         return doctor;
     }
-
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }
