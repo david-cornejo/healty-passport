@@ -1,4 +1,5 @@
 package com.healty.passport.persistence.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;

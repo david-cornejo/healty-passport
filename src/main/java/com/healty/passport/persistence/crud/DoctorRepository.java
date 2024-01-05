@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface DoctorRepository extends CrudRepository<Doctor, Integer> {
     Doctor findBynCedula(Integer nCedula);
+    Doctor findByIdUsuario(Integer idUsuario);
 }
 
 

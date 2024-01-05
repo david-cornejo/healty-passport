@@ -1,26 +1,30 @@
 package com.healty.passport.persistence.repository;
 import com.healty.passport.persistence.entity.Cuenta;
 import com.healty.passport.persistence.crud.CuentaCrudRepository;
+import org.springframework.data.util.Pair;
 import org.springframework.stereotype.Repository;
+import java.util.Optional;
 
 @Repository
 public class LoginRepository {
     private final CuentaCrudRepository cuentaCrudRepository;
+
     public LoginRepository(CuentaCrudRepository cuentaCrudRepository) {
         this.cuentaCrudRepository = cuentaCrudRepository;
     }
-    public boolean autenticar(String correo, String contraseña) {
+
+    public Optional<Pair<String, Integer>> autenticar(String correo, String contraseña) {
         try {
             Cuenta cuenta = cuentaCrudRepository.findByCorreo(correo);
-
-            if (cuenta != null) {
-                return cuenta.getContraseña().equals(contraseña);
+            if (cuenta != null && cuenta.getContraseña().equals(contraseña)) {
+                String tipoUsuario = cuenta.getUsuario().getTipoUsuario();
+                Integer idUsuario = cuenta.getUsuario().getIdUsuario();
+                return Optional.of(Pair.of(tipoUsuario, idUsuario));
             }
-            return false;
+            return Optional.empty();
         } catch (Exception e) {
-            // Aquí puedes loguear la excepción para obtener más detalles
             e.printStackTrace();
-            return false;
+            return Optional.empty();
         }
     }
 }
