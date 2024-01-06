@@ -1,5 +1,5 @@
 package com.healty.passport.web.controller;
-import com.healty.passport.persistence.entity.Cuenta;
+import com.healty.passport.persistence.entity.Tratamiento;
 import com.healty.passport.web.controller.dto.DoctorDto;
 import com.healty.passport.web.controller.dto.TratamientoDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.healty.passport.web.controller.dto.UsuarioDto;
+import com.healty.passport.web.controller.dto.HistorialDto;
 import com.healty.passport.web.controller.dto.CitaDto;
 import com.healty.passport.persistence.service.UsuarioService;
 import com.healty.passport.persistence.entity.Usuario;
-import org.springframework.http.ResponseEntity;
 
 import java.util.HashMap;
 import java.util.List;
@@ -79,6 +79,19 @@ public class UsuarioController {
     public ResponseEntity<TratamientoDto> obtenerTratamientoPorUsuarioId(@PathVariable Integer idUsuario) {
         TratamientoDto tratamiento = usuarioService.obtenerTratamientoPorUsuarioId(idUsuario);
         return ResponseEntity.ok(tratamiento);
+    }
+    @CrossOrigin(origins = "http://localhost")//configuracion del server del front
+    @PutMapping("/{idUsuario}/editTratamiento")
+    public ResponseEntity<Tratamiento> editarTratamiento(@PathVariable Integer idUsuario, @RequestBody TratamientoDto tratamientoDto) {
+
+        Tratamiento tratamientoActualizado = usuarioService.actualizarTratamiento(idUsuario, tratamientoDto);
+        return ResponseEntity.ok(tratamientoActualizado);
+    }
+    @CrossOrigin(origins = "http://localhost")//configuracion del server del front
+    @GetMapping("/historial/{idUsuario}")
+    public ResponseEntity<HistorialDto> obtenerHistorialporUsuarioId(@PathVariable Integer idUsuario) {
+        HistorialDto historial = usuarioService.obtenerHistorialporUsuarioId(idUsuario);
+        return ResponseEntity.ok(historial);
     }
     // Otros endpoints...
 }

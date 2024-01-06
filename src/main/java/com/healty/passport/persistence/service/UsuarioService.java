@@ -2,13 +2,10 @@ package com.healty.passport.persistence.service;
 
 import com.healty.passport.persistence.crud.*;
 import com.healty.passport.persistence.entity.*;
-import com.healty.passport.web.controller.dto.CitaDto;
-import com.healty.passport.web.controller.dto.DoctorDto;
-import com.healty.passport.web.controller.dto.TratamientoDto;
+import com.healty.passport.web.controller.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.healty.passport.web.controller.dto.UsuarioDto;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -26,15 +23,18 @@ public class UsuarioService {
     private final CitaRepository citaRepository;
     private final TratamientoRepository tratamientoRepository;
 
+    private final HistorialRepository historialRepository;
+
     @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository, DoctorRepository doctorRepository,
                           CuentaRepository cuentaRepository, CitaRepository citaRepository,
-                          TratamientoRepository tratamientoRepository) {
+                          TratamientoRepository tratamientoRepository, HistorialRepository historialRepository) {
         this.usuarioRepository = usuarioRepository;
         this.doctorRepository = doctorRepository;
         this.cuentaRepository = cuentaRepository;
         this.citaRepository = citaRepository;
         this.tratamientoRepository = tratamientoRepository;
+        this.historialRepository = historialRepository;
     }
 
     @Transactional
@@ -163,12 +163,31 @@ public class UsuarioService {
         // Convertir el tratamiento a DTO
         TratamientoDto tratamientoDto = new TratamientoDto();
         tratamientoDto.setMedicamento(tratamiento.getMedicamento());
-        tratamientoDto.setFechaInicio(formatFecha(tratamiento.getFechaInicio(), "yyyy-MM-dd"));
-        tratamientoDto.setFechaFinal(formatFecha(tratamiento.getFechaFinal(), "yyyy-MM-dd"));
+        tratamientoDto.setFechaInicio(tratamiento.getFechaInicio());
+        tratamientoDto.setFechaFinal(tratamiento.getFechaFinal());
         tratamientoDto.setEnfermedad(tratamiento.getEnfermedad());
 
         return tratamientoDto;
     }
+    @Transactional
+    public Tratamiento actualizarTratamiento(Integer idUsuario, TratamientoDto tratamientoDto) {
+        Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
+        Tratamiento tratamiento = tratamientoRepository.findByUsuario(usuario);
+        tratamiento.setMedicamento(tratamientoDto.getMedicamento());
+        tratamiento.setFechaInicio(tratamientoDto.getFechaInicio());
+        tratamiento.setFechaFinal(tratamientoDto.getFechaFinal());
+        tratamiento.setEnfermedad(tratamientoDto.getEnfermedad());
+        return tratamiento;
+    }
+    public HistorialDto obtenerHistorialporUsuarioId(Integer idUsuario) {
+        Optional<Usuario> usuario = usuarioRepository.findById(idUsuario);
+        Historial historial = historialRepository.findByUsuario(usuario);
 
+        // Convertir el tratamiento a DTO
+        HistorialDto historialDto = new HistorialDto();
+        historialDto.setDescripcionHistorial(historial.getDescripcionHistorial());
+
+        return historialDto;
+    }
     // Otros métodos del servicio...
 }

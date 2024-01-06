@@ -3,6 +3,8 @@ package com.healty.passport.web.controller.dto;
 import java.util.Date;
 
 public class UsuarioDto {
+
+    private Integer id;
     private String nombre;
     private String apellidos;
     private String correo;
@@ -12,6 +14,14 @@ public class UsuarioDto {
     private Integer cedulaProfesional;
     private String ubicacion; // Para el caso de Doctor
     private String contraseña; // Contraseña en texto plano
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNombre() {
         return nombre;

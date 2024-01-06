@@ -6,8 +6,8 @@ import java.util.Date;
 
 public class TratamientoDto {
     private String medicamento;
-    private String fechaFinal;
-    private String fechaInicio;
+    private Date fechaFinal;
+    private Date fechaInicio;
     private String enfermedad;
 
     public String getMedicamento() {
@@ -18,19 +18,19 @@ public class TratamientoDto {
         this.medicamento = medicamento;
     }
 
-    public String getFechaFinal() {
+    public Date getFechaFinal() {
         return fechaFinal;
     }
 
-    public void setFechaFinal(String fechaFinal) {
+    public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
     }
 
-    public String getFechaInicio() {
+    public Date getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(String fechaInicio) {
+    public void setFechaInicio(Date fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 

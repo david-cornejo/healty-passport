@@ -49,6 +49,7 @@ public class DoctorService {
         // Setear propiedades...
         pacienteDto.setNombre(paciente.getNombre());
         pacienteDto.setApellidos(paciente.getApellidos());
+        pacienteDto.setId(paciente.getIdUsuario());
         // ... Setear las demás propiedades según sean necesarias
         return pacienteDto;
     }
