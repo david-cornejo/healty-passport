@@ -12,7 +12,6 @@ public class Cita {
     private Integer idCita;
 
     @Column(name = "Fecha")
-    @Temporal(TemporalType.DATE)
     private Date fecha;
 
     @ManyToOne

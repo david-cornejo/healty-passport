@@ -26,12 +26,11 @@ public class Doctor{
     public Doctor() {
     }
 
-    public String getUbicacion() {
-        return ubicacion;
+    public Integer getnCedula() {
+        return nCedula;
     }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setnCedula(Integer nCedula) {
+        this.nCedula = nCedula;
     }
 
     public Integer getIdUsuario() {
@@ -42,12 +41,12 @@ public class Doctor{
         this.idUsuario = idUsuario;
     }
 
-    public Integer getnCedula() {
-        return nCedula;
+    public String getUbicacion() {
+        return ubicacion;
     }
 
-    public void setnCedula(Integer nCedula) {
-        this.nCedula = nCedula;
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     public Usuario getUsuario() {
@@ -64,13 +63,5 @@ public class Doctor{
 
     public void setCitas(Set<Cita> citas) {
         this.citas = citas;
-    }
-
-    public Integer getNCedula() {
-        return nCedula;
-    }
-
-    public void setNCedula(Integer nCedula) {
-        this.nCedula = nCedula;
     }
 }

@@ -22,8 +22,8 @@ public class Tratamiento {
     private Date fechaInicio;
     @Column(name = "Enfermedad")
     private String enfermedad;
-    @Column(name = "ID_Cita")
-    private Integer idCita;
+    //@Column(name = "ID_Cita")
+    //private Integer idCita;
 
     public Tratamiento() {
     }
@@ -76,11 +76,11 @@ public class Tratamiento {
         this.enfermedad = enfermedad;
     }
 
-    public Integer getIdCita() {
-        return idCita;
-    }
+    //public Integer getIdCita() {
+       // return idCita;
+    //}
 
-    public void setIdCita(Integer idCita) {
-        this.idCita = idCita;
-    }
+    //public void setIdCita(Integer idCita) {
+     //  this.idCita = idCita;
+    //}
 }

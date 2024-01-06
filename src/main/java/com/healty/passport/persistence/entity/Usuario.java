@@ -1,4 +1,5 @@
 package com.healty.passport.persistence.entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.List;
@@ -22,8 +23,7 @@ public class Usuario {
     private String telefono;
     @Column(name = "Fecha_de_Nacimiento")
     private Date fechaDeNacimiento;
-
-    @Column(name = "Tipo_usuario", insertable=false, updatable=false)
+    @Column(name = "Tipo_usuario")
     private String tipoUsuario;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
@@ -44,7 +44,6 @@ public class Usuario {
     public Doctor getDoctor() {
         return doctor;
     }
-
     public void setDoctor(Doctor doctor) {
         this.doctor = doctor;
     }

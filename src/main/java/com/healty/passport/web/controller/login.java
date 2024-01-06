@@ -1,33 +1,36 @@
 package com.healty.passport.web.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.healty.passport.persistence.CuentaRepository;
+import com.healty.passport.persistence.repository.LoginRepository;
 import com.healty.passport.web.controller.dto.LoginDto;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
 public class login {
 
-    private final CuentaRepository cuentaRepository;
+    private final LoginRepository loginRepository;
 
     @Autowired
-    public login(CuentaRepository cuentaRepository) {
-        this.cuentaRepository = cuentaRepository;
+    public login(LoginRepository loginRepository) {
+        this.loginRepository = loginRepository;
     }
-
 
     @CrossOrigin(origins = "http://localhost")
     @PostMapping("/login")
-    public ResponseEntity<?> Login(@RequestBody LoginDto loginDto) {
-        boolean isAuthenticated = cuentaRepository.autenticar(loginDto.getCorreo(), loginDto.getContraseña());
+    public ResponseEntity<?> login(@RequestBody LoginDto loginDto) {
+        Optional<Pair<String, Integer>> autenticacion = loginRepository.autenticar(loginDto.getCorreo(), loginDto.getContraseña());
 
-        if (isAuthenticated) {
-            // Inicio de sesión exitoso
-            return ResponseEntity.ok().body("{\"mensaje\": \"Inicio de sesión exitoso\"}");
+        if (autenticacion.isPresent()) {
+            Pair<String, Integer> tipoUsuarioYId = autenticacion.get();
+            return ResponseEntity.ok().body("{\"tipoUsuario\": \"" + tipoUsuarioYId.getFirst() +
+                    "\", \"idUsuario\": \"" + tipoUsuarioYId.getSecond() + "\"}");
         } else {
-            // Inicio de sesión fallido
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("{\"error\": \"Credenciales inválidas\"}");
         }
     }
